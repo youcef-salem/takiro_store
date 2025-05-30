@@ -46,7 +46,7 @@ class _LoginState extends State<Login> {
                       hintText: "enter your Email ",
                     ),
                   ),
-                const  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextFormField(
                     controller: password_conteroler,
                     decoration: InputDecoration(
@@ -68,13 +68,17 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.only(top: 34),
                     child: Mainbutton(txt: "LOGIN", onPressed: () => {}),
                   ),
-                 const SizedBox(height: 20),
-                const  Align(
+                  const SizedBox(height: 20),
+                  Align(
                     alignment: Alignment.topRight,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: InkWell(
-                        
+                        onTap:
+                            () => {
+                              
+                              Navigator.pushNamed(context, '/register')},
+
                         child: const Text('You d\'ont have an acount ?'),
                       ),
                     ),
