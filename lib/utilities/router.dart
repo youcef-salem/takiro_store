@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:takiro_store/utilities/routes.dart';
-import 'package:takiro_store/view/RegisterPage.dart';
+
 import 'package:takiro_store/view/landing_page.dart';
-import 'package:takiro_store/view/login.dart';
+import 'package:takiro_store/view/auth.dart';
 
 Route<dynamic> ongenerateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -11,11 +11,8 @@ Route<dynamic> ongenerateRoute(RouteSettings settings) {
         builder: (_) => LandingPage(),
       ); // Replace with your home widget
     case Routes.loginPage:
-      return MaterialPageRoute(builder: (_) => Login());
-      case Routes.registerPage:
-      return MaterialPageRoute(
-        builder: (_) =>  Registerpage(), // Replace with your register widget
-      );
+      return MaterialPageRoute(builder: (_) => Auth());
+      
     // Add more routes here as needed
     default:
       return MaterialPageRoute(

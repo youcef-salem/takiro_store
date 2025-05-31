@@ -1,4 +1,4 @@
-enum Form_TYpe {
+enum Auth_Form_TYpe {
   login,
   register,
 }

@@ -17,21 +17,31 @@ class MyApp extends StatelessWidget {
       title: 'Takiro ',
 
       theme: ThemeData(
-        
         inputDecorationTheme: InputDecorationTheme(
-          labelStyle: Theme.of(context).textTheme.labelLarge,
+          labelStyle: TextStyle(color: Colors.grey[600]),
+          // Add these properties for error styling
+          errorStyle: TextStyle(color: Colors.red, fontSize: 12),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+         
+          // Existing properties
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(2),
             borderSide: BorderSide(color: Colors.grey),
           ),
-          enabledBorder:   OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(2),
             borderSide: BorderSide(color: Colors.grey),
           ),
         ),
         primaryColor: Colors.red,
         scaffoldBackgroundColor: Color(0xFFF9F9F9),
-      
       ),
 
       initialRoute: Routes.loginPage,
