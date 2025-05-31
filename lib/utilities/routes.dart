@@ -2,7 +2,7 @@ class Routes {
 static const String  landingPage = '/LandingPage';
 static const   loginPage = '/login';
 
-static const  homePage = '/home';
+static const  Bottomnavbar = '/Bottomnavbar';
 
 
 

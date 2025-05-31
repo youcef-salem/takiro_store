@@ -25,7 +25,9 @@ class _AuthState extends State<Auth> {
   final password_conteroler = TextEditingController();
   var Authtype = Auth_Form_TYpe.login;
   var to_Auth = true;
-
+  final FocusNode password_node = FocusNode();
+  final FocusNode email_node = FocusNode();
+  final FocusNode name_node = FocusNode();
   final name_controler = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class _AuthState extends State<Auth> {
                   Visibility(
                     visible: !to_Auth,
                     child: TextFormField(
+                      focusNode: name_node,
                       controller: name_controler,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -56,6 +59,8 @@ class _AuthState extends State<Auth> {
                         }
                         return null;
                       },
+                      onEditingComplete:
+                          () => FocusScope.of(context).requestFocus(email_node),
                       decoration: InputDecoration(
                         labelText: "Name",
                         hintText: "enter your Name",
@@ -65,6 +70,7 @@ class _AuthState extends State<Auth> {
                   ),
                   SizedBox(height: 20),
                   TextFormField(
+                    focusNode: email_node,
                     controller: email_controler,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -75,6 +81,8 @@ class _AuthState extends State<Auth> {
                       }
                       return null;
                     },
+                    onEditingComplete: () => FocusScope.of(context).nextFocus(),
+                    textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       labelText: "Email",
                       hintText: "enter your Email",
@@ -83,6 +91,7 @@ class _AuthState extends State<Auth> {
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
+                    focusNode: password_node,
                     controller: password_conteroler,
                     obscureText: true, // Hide password
                     validator: (value) {
@@ -121,9 +130,7 @@ class _AuthState extends State<Auth> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           // Handle login logic
-                          debugPrint(
-                            "Email: ${email_controler.text}, Password: ${password_conteroler.text}, Name: ${name_controler.text}",
-                          );
+                          Navigator.pushNamed(context, '/home');
                         }
                       },
                     ),

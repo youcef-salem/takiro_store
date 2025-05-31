@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:takiro_store/utilities/routes.dart';
+import 'package:takiro_store/view/BototmNavbar.dart';
 
-import 'package:takiro_store/view/landing_page.dart';
+
 import 'package:takiro_store/view/auth.dart';
 
 Route<dynamic> ongenerateRoute(RouteSettings settings) {
   switch (settings.name) {
-    case Routes.landingPage:
-      return MaterialPageRoute(
-        builder: (_) => LandingPage(),
-      ); // Replace with your home widget
+   // Replace with your home widget
     case Routes.loginPage:
       return MaterialPageRoute(builder: (_) => Auth());
-      
+      case Routes.Bottomnavbar:
+      return MaterialPageRoute(builder: (_) =>  BottomNavbar()); // Replace with your home widget
     // Add more routes here as needed
     default:
       return MaterialPageRoute(
