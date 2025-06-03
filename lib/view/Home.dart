@@ -99,13 +99,18 @@ class _HomeState extends State<Home> {
 
                 ),
              ],
+
              
              
              
              ),
            )
 
-         
+         , SpacerHome(largetitle: "New",
+          subtitle: "y'have seen it before",
+          textright: "view all"
+          ,ontap: () => {},
+        )
            
           
           ],

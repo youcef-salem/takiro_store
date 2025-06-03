@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CardSale extends StatelessWidget {
+class CardSale extends StatefulWidget {
   final Size size;
   String  imageUrl ;
 
@@ -24,11 +24,17 @@ required this.new_price,
   });
 
   @override
+  State<CardSale> createState() => _CardSaleState();
+}
+
+class _CardSaleState extends State<CardSale> {
+  bool click = false ;
+  @override
   Widget build(BuildContext context) {
-    int purcentage = ((prev_price - new_price) / prev_price * 100).round();
+    int purcentage = ((widget.prev_price - widget.new_price) / widget.prev_price * 100).round();
     return Container(
-      width: size.width * 0.45,
-      
+      width: widget.size.width * 0.45,
+
       decoration: BoxDecoration(
 // Rounded corners
       color: Colors.white
@@ -40,21 +46,44 @@ required this.new_price,
         children: [
           // Add some space at the top
           ClipRRect(
-       borderRadius: BorderRadius.circular(15), 
+       borderRadius: BorderRadius.circular(15),
             child: Stack(
               children: [
+
+
                 Image.asset(
-                  imageUrl,
-                  width: size.width * 0.45,
-                  height: size.height * 0.25, // Adjust height as needed
+                  widget.imageUrl,
+                  width: widget.size.width * 0.45,
+                  height: widget.size.height * 0.25, // Adjust height as needed
                   fit: BoxFit.cover,
                 ),
                 Opacity(
                   opacity: 0.3,
                   child: Container(
-                    width: size.width * 0.45,
-                    height: size.height * 0.25,
+                    width: widget.size.width * 0.45,
+                    height: widget.size.height * 0.25,
                     color:Colors.grey, // Semi-transparent overlay,
+                  ),
+                ),
+                  Positioned(
+
+                 top: 200,left: widget.size.width * 0.34 ,
+                  child: FloatingActionButton(
+                    shape:  CircleBorder(),
+                      backgroundColor: Colors.white,
+                      child : Icon(
+                          click?   Icons.favorite : Icons.favorite_border
+                  
+                      )
+                      ,
+                      onPressed: (){
+                  
+                        setState(() {
+                          click = true ;
+                        });
+                  
+                      }
+                  
                   ),
                 ),
                 Container(
@@ -72,7 +101,7 @@ required this.new_price,
                       fontSize: 15,
                     ),
                   ),
-            
+
                 )
               ],
             ),
@@ -82,19 +111,19 @@ required this.new_price,
     const SizedBox(width: 10), // Add some space on the left
      // Add some space on the left
     // Generate filled stars
-    ...List.generate(numberstar, (index) => const Icon(
+    ...List.generate(widget.numberstar, (index) => const Icon(
       Icons.star,
       color: Colors.yellow,
       size: 20,
     )),
     // Generate empty stars
-    ...List.generate(5 - numberstar, (index) => const Icon(
+    ...List.generate(5 - widget.numberstar, (index) => const Icon(
       Icons.star,
       color: Colors.grey,
       size: 20,
     )),
       Text(
-        "($persone_evaliue)",
+        "(${widget.persone_evaliue})",
         style: Theme.of(context).textTheme.headlineSmall?.copyWith(
           color: Colors.grey,
           fontWeight: FontWeight.bold,
@@ -104,24 +133,24 @@ required this.new_price,
   ],
 )
            , Text(
-            product_name,
+            widget.product_name,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: Colors.grey,
               fontWeight: FontWeight.bold,
-             
+
             ),),
              Text(
-            product_category,
+            widget.product_category,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
               color: Colors.black,
               fontWeight: FontWeight.bold,
-              
+
             ),)
             , Row(
-            
+
               children: [
                 Text(
-                  "$prev_price"" \$",
+                  "${widget.prev_price}"" \$",
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
@@ -131,7 +160,7 @@ required this.new_price,
                 ),
                 SizedBox(width: 10), // Add some space between prices
                 Text(
-                  "$new_price"" \$",
+                  "${widget.new_price}"" \$",
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
