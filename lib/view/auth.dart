@@ -130,7 +130,7 @@ class _AuthState extends State<Auth> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           // Handle login logic
-                          Navigator.pushNamed(context, '/home');
+                          Navigator.pushNamed(context, '/Bottomnavbar');
                         }
                       },
                     ),

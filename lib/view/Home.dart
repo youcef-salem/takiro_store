@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:takiro_store/utilities/image.dart';
+
 import 'package:takiro_store/widgets/Card_sale.dart';
 import 'package:takiro_store/widgets/spacer_home.dart';
 
@@ -26,7 +27,7 @@ class _HomeState extends State<Home> {
   
           children: [
             
-            Image.asset("assets/img5.webp",
+            Image.asset(ImageUtil.banner_home,
               width: size.width,
               height: size.height * 0.3,
               fit: BoxFit.cover,
@@ -64,7 +65,7 @@ class _HomeState extends State<Home> {
            SingleChildScrollView(
             scrollDirection: Axis.horizontal,
              child: Row(
-              ,
+              
              children: [
                SizedBox(width: 20),
               CardSale(size: size,
