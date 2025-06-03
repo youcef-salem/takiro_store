@@ -69,17 +69,35 @@ class _HomeState extends State<Home> {
              children: [
                SizedBox(width: 20),
               CardSale(size: size,
-               imageUrl: ImageUtil.saleimage1,purcentage: 23,numberstar: 4,
+               imageUrl: ImageUtil.saleimage1,numberstar: 4,
                // Example percentage
                persone_evaliue: 10,
+               prev_price: 100,
+                new_price: 77,
+                product_name: " PIndaa",
+                product_category: "Daily Show",
                ),
 
                 SizedBox(width: 20),
               CardSale(size: size,
-               imageUrl: ImageUtil.saleimage2,   purcentage: 10,numberstar: 2,persone_evaliue: 4,    ),
+               imageUrl: ImageUtil.saleimage2,  
+               numberstar: 2,persone_evaliue: 4, 
+               prev_price: 50,
+                new_price: 45,
+                product_name: "Nike Air",
+                product_category: "Sport Shoes", 
+                  ),
                 SizedBox(width: 20),
               CardSale(size: size,
-               imageUrl: ImageUtil.saleimage3, purcentage: 50,  numberstar: 0, persone_evaliue: 0, ),
+               imageUrl: ImageUtil.saleimage3,   numberstar: 0, persone_evaliue: 0,
+               
+
+                prev_price: 200,
+                new_price: 100,
+                product_name: "Fitfont",
+                product_category: "Summer",
+
+                ),
              ],
              
              

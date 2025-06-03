@@ -3,30 +3,40 @@ import 'package:flutter/material.dart';
 class CardSale extends StatelessWidget {
   final Size size;
   String  imageUrl ;
-  int purcentage ; 
+
   int numberstar; 
   int persone_evaliue ; 
-  
-  
+  String product_name ;
+  String product_category ;  // Default product name, can be changed later
+  int prev_price ; 
+  int new_price ;
+// Unique ID based on current time
   // Example image URL
    CardSale({super.key, required this.size,
-  required this.imageUrl,required
-  this.purcentage ,
-required this.numberstar
-,required this.persone_evaliue
+  required this.imageUrl,
 
+required this.numberstar
+,required this.persone_evaliue,
+required this.product_name,
+required this.product_category,
+required this.prev_price,
+required this.new_price,
   });
 
   @override
   Widget build(BuildContext context) {
+    int purcentage = ((prev_price - new_price) / prev_price * 100).round();
     return Container(
       width: size.width * 0.45,
+      
       decoration: BoxDecoration(
 // Rounded corners
       color: Colors.white
 
       ), // Take up 45% of screen width
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Add some space at the top
           ClipRRect(
@@ -93,7 +103,44 @@ required this.numberstar
       )
   ],
 )
-           
+           , Text(
+            product_name,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+             
+            ),),
+             Text(
+            product_category,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              
+            ),)
+            , Row(
+            
+              children: [
+                Text(
+                  "$prev_price"" \$",
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    decoration: TextDecoration.lineThrough, // No strikethrough
+                  ),
+                ),
+                SizedBox(width: 10), // Add some space between prices
+                Text(
+                  "$new_price"" \$",
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    decoration: TextDecoration.none, // Strikethrough
+                  ),
+                ),
+              ],
+            ),
 
 
         ],
