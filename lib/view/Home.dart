@@ -87,6 +87,7 @@ class _HomeState extends State<Home> {
           ),
     SingleChildScrollView(
     scrollDirection: Axis.horizontal,
+
     child: Row(
 
 

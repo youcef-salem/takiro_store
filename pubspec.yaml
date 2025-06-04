@@ -16,8 +16,13 @@ dependencies:
     sdk: flutter
 
   persistent_bottom_nav_bar_v2: ^6.0.1
-
+  firebase_core: ^3.13.1
+  firebase_auth: ^5.5.4
+  cloud_firestore: ^5.6.8
+  provider: ^6.1.5
+  change_app_package_name: ^1.5.0
   cupertino_icons: ^1.0.8
+
 
 dev_dependencies:
   flutter_test:

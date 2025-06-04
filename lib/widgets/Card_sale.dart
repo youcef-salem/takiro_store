@@ -48,7 +48,7 @@ class _CardSaleState extends State<CardSale> {
                       widget.product.imageUrl,
                       width: widget.size.width * 0.45,
                       height: widget.size.height * 0.25,
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                       // Add a unique hero tag using the product's unique identifier
                       // Assuming product has an id
                     ),
@@ -122,36 +122,46 @@ class _CardSaleState extends State<CardSale> {
                 fontWeight: FontWeight.bold,
         
               ),)
-              , Row(
-        
-                children: [
-                  Text(
-                    "${widget.product.price}"" \$",
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      decoration: TextDecoration.lineThrough, // No strikethrough
-                    ),
-                  ),
-               const    SizedBox(width: 10), // Add some space between prices
-                  Text(
-                    "${widget.product.discount ==0 ? widget.product.price:  widget.product.price - (
-                      (widget.product.price * (widget.product.discount??0  )) / 100
-        
-                    ) }"" \$",
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      decoration: TextDecoration.none, // Strikethrough
-                    ),
-                  ),
-                ],
-              ),
-        
-        
-          ],
+              , Text.rich(
+
+
+
+        TextSpan(
+          text:
+          "${widget.product.price}"" \$",
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+            color: Colors.grey,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            decoration: TextDecoration.lineThrough, // No strikethrough
+          ),
+
+
+
+
+                 children: [
+
+
+    TextSpan(
+    text:
+
+    "      ${widget.product.discount ==0 ? widget.product.price:  widget.product.price - (
+    (widget.product.price * (widget.product.discount??0  )) / 100
+
+    ) }"" \$",
+    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+    color: Colors.red,
+    fontWeight: FontWeight.bold,
+    fontSize: 15,
+    decoration: TextDecoration.none, // Strikethrough
+    ),)
+
+               // Add some space between prices
+
+
+
+                 ]
+        )) ],
         ),
         Positioned(
         

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1098117335962",
+    "project_id": "takiro-store",
+    "storage_bucket": "takiro-store.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098117335962:android:09793226a80801626e4823",
+        "android_client_info": {
+          "package_name": "com.youcef_salem24.takiro_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbaH0vDxcBlkaGxQlT-5FScfLR3XCC68o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
