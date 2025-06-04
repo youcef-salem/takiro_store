@@ -4,7 +4,7 @@ import 'package:takiro_store/utilities/enums.dart';
 import 'package:takiro_store/widgets/mainbutton.dart';
 
 class Auth extends StatefulWidget {
-  Auth({super.key});
+  const Auth({super.key});
 
   @override
   State<Auth> createState() => _AuthState();
@@ -76,9 +76,6 @@ class _AuthState extends State<Auth> {
                       if (value == null || value.isEmpty) {
                         return 'Email is required';
                       }
-                      if (!value.contains('@')) {
-                        return 'Please enter a valid email';
-                      }
                       return null;
                     },
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
@@ -97,9 +94,6 @@ class _AuthState extends State<Auth> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Password is required';
-                      }
-                      if (value.length < 6) {
-                        return 'Password must be at least 6 characters';
                       }
                       return null;
                     },

@@ -4,7 +4,7 @@ import 'package:takiro_store/view/Home.dart';
 import 'package:takiro_store/view/auth.dart';
 
 class BottomNavbar extends StatefulWidget {
-   BottomNavbar({super.key});
+   const BottomNavbar({super.key});
 
   @override
   State<BottomNavbar> createState() => _BottomNavbarState();
