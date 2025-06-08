@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:provider/provider.dart';
 import 'package:takiro_store/view/Home.dart';
 import 'package:takiro_store/view/auth.dart';
+import 'package:takiro_store/view/auth.dart' as auth_view;
+import '../controlers/auth_conteroler.dart';
+import '../services/Auth.dart';
 
 class BottomNavbar extends StatefulWidget {
    const BottomNavbar({super.key});
@@ -15,6 +19,7 @@ final PersistentTabController _controller = PersistentTabController();
 
   @override
   Widget build(BuildContext context) {
+    final Auth = Provider.of<AuthBase>(context, listen: false);
     return Scaffold(
      body :PersistentTabView(
 
@@ -39,7 +44,7 @@ final PersistentTabController _controller = PersistentTabController();
     ),
     ),
        PersistentTabConfig(
-         screen: Auth(),
+         screen: Container(),
          item: ItemConfig(
 
 
@@ -57,9 +62,12 @@ final PersistentTabController _controller = PersistentTabController();
            title: "Favorite",
 
          ),
-       ),
-       PersistentTabConfig(
-         screen: Auth(),
+       ), PersistentTabConfig(
+         screen: ChangeNotifierProvider<auth_controler>(
+           create: (_) => auth_controler(auth: Auth) ,
+           child: const auth_view.Auth(),
+
+         ),
          item: ItemConfig(
 
 

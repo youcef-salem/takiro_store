@@ -4,6 +4,7 @@ import 'package:takiro_store/view/BototmNavbar.dart';
 
 
 import 'package:takiro_store/view/auth.dart';
+import 'package:takiro_store/view/landing_page.dart';
 
 Route<dynamic> ongenerateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -13,6 +14,8 @@ Route<dynamic> ongenerateRoute(RouteSettings settings) {
       case Routes.Bottomnavbar:
       return MaterialPageRoute(builder: (_) =>  BottomNavbar()); // Replace with your home widget
     // Add more routes here as needed
+      case Routes.landingPage:
+        return MaterialPageRoute(builder: (_) => Laanding_page());
     default:
       return MaterialPageRoute(
         builder:
