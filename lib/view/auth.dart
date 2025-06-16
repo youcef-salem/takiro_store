@@ -5,7 +5,7 @@ import 'package:takiro_store/controlers/auth_conteroler.dart';
 import 'package:takiro_store/utilities/enums.dart';
 import 'package:takiro_store/widgets/mainbutton.dart';
 
-import '../services/Auth.dart';
+
 
 class Auth extends StatefulWidget {
   const Auth({super.key});
@@ -17,7 +17,7 @@ class Auth extends StatefulWidget {
 class _AuthState extends State<Auth> {
   @override
   void dispose() {
-    // TODO: implement dispose
+  
     super.dispose();
     email_controler.dispose();
     password_conteroler.dispose();
@@ -165,6 +165,7 @@ class _AuthState extends State<Auth> {
                             padding: const EdgeInsets.only(top: 10),
                             child: InkWell(
                               onTap: () {
+
                                 _formKey.currentState!.reset();
 
                                 model.togle_type();

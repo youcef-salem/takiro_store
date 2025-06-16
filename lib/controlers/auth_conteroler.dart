@@ -11,67 +11,54 @@ class auth_controler with ChangeNotifier {
 
   Auth_Form_TYpe type;
 
+  void update_email(String email) {
+    copyWith(email: email);
+    notifyListeners();
+  }
 
-  void update_email(String email){
-copyWith(email: email);
-  notifyListeners();
-
-  } 
-  void update_password(String password){
+  void update_password(String password) {
     copyWith(password: password);
     notifyListeners();
   }
-  void togle_type(){
-   final curent_type = type;
-   type = curent_type == Auth_Form_TYpe.login ? Auth_Form_TYpe.register : Auth_Form_TYpe.login;
-       copyWith(
-         type: type,
-         email:'',
-         password: ''
-       );
+
+  void togle_type() {
+    final curent_type = type;
+    type =
+        curent_type == Auth_Form_TYpe.login
+            ? Auth_Form_TYpe.register
+            : Auth_Form_TYpe.login;
+    copyWith(type: type, email: '', password: '');
     notifyListeners();
   }
+
   Future<void> submit() async {
-  try {
-    if (type == Auth_Form_TYpe.login) {
-      await auth.Login_with_email_and_password(email, password);
-    } else {
-      await auth.Signup_with_email_and_password(email, password);
+    try {
+      if (type == Auth_Form_TYpe.login) {
+        await auth.Login_with_email_and_password(email, password);
+      } else {
+        await auth.Signup_with_email_and_password(email, password);
+      }
+      copyWith(email: '', password: '');
+    } catch (e) {
+      rethrow; // Use rethrow instead of creating a new exception
     }
-    copyWith(
-      email: '',
-      password: '',
-    );
-  } catch (e) {
-    rethrow; // Use rethrow instead of creating a new exception
+    notifyListeners();
   }
-  notifyListeners();
-}
+
+  void logout() async {
+    await auth.logoutOut();
+  }
 
   auth_controler({
     required this.auth,
     this.email = '',
     this.password = '',
     this.type = Auth_Form_TYpe.login,
-
   });
-  void  copyWith({
-
-    String ?email,
-    String ?password,
-    Auth_Form_TYpe ?type,
-
-  }){
-      this.email = email ?? this.email;
-     this.password = password ?? this.password;
-      this.type = type ?? this.type;
-      notifyListeners();
+  void copyWith({String? email, String? password, Auth_Form_TYpe? type}) {
+    this.email = email ?? this.email;
+    this.password = password ?? this.password;
+    this.type = type ?? this.type;
+    notifyListeners();
   }
-
 }
-
-
-
-
-
-

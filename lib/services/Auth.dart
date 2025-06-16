@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 abstract class AuthBase{
   Future<User?> Login_with_email_and_password(String email,String password) ;
   Future<User?> Signup_with_email_and_password( String email,String password) ;
+  
   User? get currentUser;
   Stream<User?>  get authStateChanges;
 Future<void> logoutOut();

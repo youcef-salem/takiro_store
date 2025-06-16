@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:takiro_store/view/Home.dart';
 import 'package:takiro_store/view/auth.dart';
 import 'package:takiro_store/view/auth.dart' as auth_view;
+import 'package:takiro_store/view/profile_page.dart';
 import '../controlers/auth_conteroler.dart';
 import '../services/Auth.dart';
 
@@ -65,7 +66,7 @@ final PersistentTabController _controller = PersistentTabController();
        ), PersistentTabConfig(
          screen: ChangeNotifierProvider<auth_controler>(
            create: (_) => auth_controler(auth: Auth) ,
-           child: const auth_view.Auth(),
+           child: const ProfilePage(),
 
          ),
          item: ItemConfig(
