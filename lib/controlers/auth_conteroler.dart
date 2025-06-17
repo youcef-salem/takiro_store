@@ -4,13 +4,9 @@ import 'package:takiro_store/utilities/enums.dart';
 
 class auth_controler with ChangeNotifier {
   final AuthBase auth;
-
   String email;
-
   String password;
-
   Auth_Form_TYpe type;
-
   void update_email(String email) {
     copyWith(email: email);
     notifyListeners();
@@ -40,7 +36,7 @@ class auth_controler with ChangeNotifier {
       }
       copyWith(email: '', password: '');
     } catch (e) {
-      rethrow; // Use rethrow instead of creating a new exception
+      rethrow; 
     }
     notifyListeners();
   }

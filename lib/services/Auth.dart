@@ -32,10 +32,10 @@ class auth implements AuthBase{
   }
 
   @override
-  // TODO: implement authStateChanges
+  
   Stream<User?> get authStateChanges => _firebase_auth.authStateChanges();
   @override
-  // TODO: implement currentUser
+  
   User? get currentUser =>  _firebase_auth.currentUser;
 
 

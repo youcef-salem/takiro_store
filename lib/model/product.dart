@@ -23,7 +23,38 @@ final String id ; // Unique identifier for the product
     this.numberOfReviews , // Default value for number of reviews
   });
 
+ factory Product.fromMap(Map<String, dynamic>? map,String doc_id) {
+  return Product(
+    id: doc_id,
+    price: map!['price'] as int,
+    name: map['name'] as String,
+    category: map['category'] as String,
+    imageUrl: map['imageUrl'] as String,
+    discount: map['discount'] as int?,
+    rating: map['rating'] as int?,
+    numberOfReviews: map['numberOfReviews'] as int?,
+  );
 }
+
+Map<String, dynamic> toMap() {
+  return {
+    'id': id,
+    'price': price,
+    'name': name,
+    'category': category,
+    'imageUrl': imageUrl,
+    'discount': discount,
+    'rating': rating,
+    'numberOfReviews': numberOfReviews,
+  };
+}
+
+
+}
+
+
+
+
 List<Product> products = [
   Product(
     id: '1',
