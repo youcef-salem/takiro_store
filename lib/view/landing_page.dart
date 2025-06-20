@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' ;
 import 'package:provider/provider.dart';
+import 'package:takiro_store/controlers/Data_base.dart';
 import 'package:takiro_store/controlers/auth_conteroler.dart';
 import 'package:takiro_store/view/BototmNavbar.dart';
 import 'package:takiro_store/services/Auth.dart';
@@ -25,7 +26,9 @@ class Laanding_page extends StatelessWidget {
 
             );
           } else {
-            return const  BottomNavbar();
+            return Provider(
+              create: (_) => fire_store_db(uuid: user.uid),
+              child: const  BottomNavbar());
         }
 
 

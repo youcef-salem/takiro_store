@@ -28,6 +28,7 @@ class CloudFirestore {
     return snaopshots.map(
       (snaopshots) => builder(snaopshots.data(), snaopshots.id),
     );
+    
   }
 
   Stream<List<T>> colection_stream<T>({

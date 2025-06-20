@@ -26,13 +26,13 @@ final String id ; // Unique identifier for the product
  factory Product.fromMap(Map<String, dynamic>? map,String doc_id) {
   return Product(
     id: doc_id,
-    price: map!['price'] as int,
-    name: map['name'] as String,
-    category: map['category'] as String,
-    imageUrl: map['imageUrl'] as String,
-    discount: map['discount'] as int?,
-    rating: map['rating'] as int?,
-    numberOfReviews: map['numberOfReviews'] as int?,
+    price: map?['price'] is int ? map!['price'] as int : 0,
+    name: map?['name'] as String? ?? '',
+    category: map?['category'] as String? ?? '',
+    imageUrl: map?['imageUrl'] as String? ?? '',
+    discount: map?['discount'] as int?,
+    rating: map?['rating'] as int?,
+    numberOfReviews: map?['numberOfReviews'] as int?,
   );
 }
 
