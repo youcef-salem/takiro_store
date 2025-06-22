@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 import 'package:takiro_store/view/Home.dart';
-import 'package:takiro_store/view/auth.dart';
-import 'package:takiro_store/view/auth.dart' as auth_view;
+
 import 'package:takiro_store/view/profile_page.dart';
 import '../controlers/auth_conteroler.dart';
 import '../services/Auth.dart';

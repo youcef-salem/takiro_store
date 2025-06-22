@@ -2,7 +2,8 @@ import 'package:takiro_store/model/product.dart';
 import 'package:takiro_store/services/cloud_firestore.dart';
 
 abstract class DataBase {
-  Stream<List<Product>> stream_product();
+  Stream<List<Product>> strream_pr_sales();
+  Stream<List<Product>> strream_pr_new();
 }
 
 class fire_store_db implements DataBase {
@@ -10,7 +11,18 @@ class fire_store_db implements DataBase {
   final cloud_fire = CloudFirestore.instance;
   fire_store_db({required this.uuid});
   @override
-  Stream<List<Product>> stream_product() =>
+  Stream<List<Product>> strream_pr_sales() =>
   //i can do the builder : (data!,document_id)=> Product.fromMap(data,document_id)
-  cloud_fire.colection_stream(path: "products/", builder :(data ,document_id) => Product.fromMap(data!,document_id) );
+  cloud_fire.colection_stream(
+    path: "products/",
+    builder: (data, document_id) => Product.fromMap(data!, document_id),
+    query_builder: (query) => query.where('discount', isNotEqualTo: 0),
+  );
+  
+  @override
+  Stream<List<Product>> strream_pr_new() => cloud_fire.colection_stream(
+    path: "products/",
+    builder: (data, document_id) => Product.fromMap(data!, document_id),
+   
+  );
 }

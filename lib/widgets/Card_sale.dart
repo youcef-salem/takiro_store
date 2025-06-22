@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:takiro_store/model/product.dart';
 
@@ -61,7 +63,7 @@ class _CardSaleState extends State<CardSale> {
                       color:Colors.grey, // Semi-transparent overlay,
                     ),
                   ),
-                    
+                     widget.product.discount !=0 ?
                   Container(
                    decoration: BoxDecoration(
                       color: Colors.red,
@@ -78,7 +80,7 @@ class _CardSaleState extends State<CardSale> {
                       ),
                     ),
         
-                  )
+                  ):SizedBox()
                 ],
               ),
             ),
@@ -125,7 +127,7 @@ class _CardSaleState extends State<CardSale> {
               , Text.rich(
 
 
-
+        widget.product.discount !=0?
         TextSpan(
           text:
           "${widget.product.price}"" \$",
@@ -161,7 +163,21 @@ class _CardSaleState extends State<CardSale> {
 
 
                  ]
-        )) ],
+        ):TextSpan(
+    text:
+
+    "${widget.product.discount ==0 ? widget.product.price:  widget.product.price - (
+    (widget.product.price * (widget.product.discount??0  )) / 100
+
+    ) }"" \$",
+    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+    color: Colors.red,
+    fontWeight: FontWeight.bold,
+    fontSize: 15,
+    decoration: TextDecoration.none, // Strikethrough
+    ),)
+        
+        ) ],
         ),
         Positioned(
         

@@ -22,7 +22,6 @@ class _HomeState extends State<Home> {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-
         children: [
           Stack(
             children: [
@@ -56,63 +55,86 @@ class _HomeState extends State<Home> {
               ),
             ],
           ),
+
           SpacerHome(
             largetitle: "Sale",
             subtitle: "Best summer sales",
             textright: "view all",
             ontap: () => {},
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children:
-                  products
-                      .map(
-                        (product) => Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: CardSale(size: size, product: product),
-                        ),
-                      )
-                      .toList(),
-            ),
+
+          // SALE PRODUCTS
+          StreamBuilder(
+            stream: data_base.strream_pr_sales(),
+            builder: (context, asyncSnapshot) {
+              if (asyncSnapshot.connectionState != ConnectionState.active) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (asyncSnapshot.hasError) {
+                return Center(child: Text('Error: ${asyncSnapshot.error}'));
+              }
+              if (!asyncSnapshot.hasData ||
+                  asyncSnapshot.data == null ||
+                  asyncSnapshot.data!.isEmpty) {
+                return const Center(child: Text("No sale products available"));
+              }
+              final listProducts = asyncSnapshot.data!;
+              return SizedBox(
+                  height: size.height*0.4,
+                
+// Fixed: was size.height*43
+                
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: listProducts.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: CardSale(size: size, product: listProducts[index]),
+                  ),
+                ),
+              );
+            },
           ),
+
           SpacerHome(
             largetitle: "New",
             subtitle: "y'have seen it before",
             textright: "view all",
             ontap: () => {},
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
 
-            child: StreamBuilder(
-              stream: data_base.stream_product(),
-              builder: (context, asyncSnapshot) {
-                if (asyncSnapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (asyncSnapshot.hasError) {
-                  return Center(child: Text('Error: ${asyncSnapshot.error}'));
-                }
-                if (!asyncSnapshot.hasData ||
-                    asyncSnapshot.data == null ||
-                    asyncSnapshot.data!.isEmpty) {
-                  return const Center(child: Text("No product available"));
-                }
-                final list_products = asyncSnapshot.data!;
-                return Row(
-                  children:
-                      list_products
-                          .map(
-                            (product) => Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: CardSale(size: size, product: product),
-                            ),
-                          )
-                          .toList(),
-                );
-              },
-            ),
+          // NEW PRODUCTS - Use different stream if available
+          StreamBuilder(
+            stream: data_base.strream_pr_new(), // Change this to appropriate stream
+            // If you don't have a separate stream for new products, use the same one but add a comment
+            // stream: data_base.strream_pr_sales(), // TODO: Create separate stream for new products
+            builder: (context, asyncSnapshot) {
+              if (asyncSnapshot.connectionState != ConnectionState.active) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (asyncSnapshot.hasError) {
+                return Center(child: Text('Error: ${asyncSnapshot.error}'));
+              }
+              if (!asyncSnapshot.hasData ||
+                  asyncSnapshot.data == null ||
+                  asyncSnapshot.data!.isEmpty) {
+                return const Center(child: Text("No new products available"));
+              }
+              final listProducts = asyncSnapshot.data!;
+              return SizedBox(
+                height: size.height*0.4,
+                // Fixed: was size.height*43
+                child: ListView.builder(
+                  
+                  scrollDirection: Axis.horizontal,
+                  itemCount: listProducts.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: CardSale(size: size, product: listProducts[index]),
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
