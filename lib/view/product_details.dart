@@ -29,6 +29,16 @@ class ProductDetails extends StatelessWidget {
             ),
           ],
         ),
+       
+
+
+
+
+
+
+
+
+
       ),
     );
   }

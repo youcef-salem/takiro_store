@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:takiro_store/controlers/Data_base.dart';
 import 'package:takiro_store/model/product.dart';
 import 'package:takiro_store/utilities/routes.dart';
 
@@ -16,7 +17,7 @@ class CardSale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Stateless: can't update this
+   final fire_store_db data_bs  = fire_store_db(uuid: product.id);
     return InkWell(
       onTap:
           () => Navigator.of(
@@ -167,10 +168,8 @@ class CardSale extends StatelessWidget {
                   heroTag: 'fab_${product.id}_$section',
                   shape: CircleBorder(),
                   backgroundColor: Colors.white,
-                  child: Icon(Icons.favorite_border),
-                  onPressed: () {
-                    // No-op: StatelessWidget can't update state
-                  },
+                  child: Icon( product.is_favorite? Icons.favorite_sharp : Icons.favorite_border   ),
+                  onPressed: () =>data_bs.togle_fav(product)
                 ),
               ),
             ),

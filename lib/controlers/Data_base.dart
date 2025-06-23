@@ -19,11 +19,17 @@ class fire_store_db implements DataBase {
     builder: (data, document_id) => Product.fromMap(data!, document_id),
     query_builder: (query) => query.where('discount', isNotEqualTo: 0),
   );
-  
+
   @override
   Stream<List<Product>> strream_pr_new() => cloud_fire.colection_stream(
     path: ApiPath.products,
     builder: (data, document_id) => Product.fromMap(data!, document_id),
-   
   );
+  Future<void> togle_fav(Product pr) async {
+    pr.is_favorite = !pr.is_favorite;
+    await cloud_fire.set_data(
+      path: '${ApiPath.products}${pr.id}/',
+      data: pr.toMap(),
+    );
+  }
 }
