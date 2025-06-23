@@ -24,6 +24,9 @@ class MyApp extends StatelessWidget {
 
 
         theme: ThemeData(
+          appBarTheme:AppBarTheme(
+            backgroundColor: Colors.white,iconTheme: IconThemeData(color: Colors.black)
+          ),
           inputDecorationTheme: InputDecorationTheme(
             labelStyle: TextStyle(color: Colors.grey[600]),
             // Add these properties for error styling

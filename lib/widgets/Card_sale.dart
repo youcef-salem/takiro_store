@@ -1,212 +1,181 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:takiro_store/model/product.dart';
+import 'package:takiro_store/utilities/routes.dart';
 
-class CardSale extends StatefulWidget {
+class CardSale extends StatelessWidget {
   final Product product;
   final Size size;
- 
-// Unique ID based on current time
-  // Example image URL
-   const CardSale({super.key, required this.size,
-  required this.product,
+  final String? section;
 
-
+  const CardSale({
+    super.key,
+    required this.size,
+    required this.product,
+    this.section = "defult",
   });
 
   @override
-  State<CardSale> createState() => _CardSaleState();
-}
-
-class _CardSaleState extends State<CardSale> {
-  bool click = false ;
-  @override
   Widget build(BuildContext context) {
-  
-    return  Container(
-      width: widget.size.width * 0.45,
+    // Stateless: can't update this
+    return InkWell(
+      onTap:
+          () => Navigator.of(
+            context,
+            rootNavigator: true
+          ).pushNamed(Routes.product_details, arguments: product),
 
-      decoration: BoxDecoration(
-// Rounded corners
-      color: Colors.white
+      child: Container(
+        width: size.width * 0.45,
 
-      ), // Take up 45% of screen width
-      child: Stack(
-        children:[ Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        decoration: BoxDecoration(color: Colors.white),
+        child: Stack(
           children: [
-            // Add some space at the top
-            ClipRRect(
-         borderRadius: BorderRadius.circular(15),
-              child: Stack(
-                children: [
-        
-        
-                  Hero(
-                    tag: "the product id is ${widget.product.id}", // Unique hero tag for the product
-                    child: Image.network(
-                      widget.product.imageUrl,
-                      width: widget.size.width * 0.45,
-                      height: widget.size.height * 0.25,
-                      fit: BoxFit.cover,
-                      // Add a unique hero tag using the product's unique identifier
-                      // Assuming product has an id
-                    ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Stack(
+                    children: [
+                      Image.network(
+                        product.imageUrl,
+                        width: size.width * 0.45,
+                        height: size.height * 0.25,
+                        fit: BoxFit.cover,
+                      ),
+                      Opacity(
+                        opacity: 0.3,
+                        child: Container(
+                          width: size.width * 0.45,
+                          height: size.height * 0.25,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      product.discount != 0
+                          ? Container(
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            padding: const EdgeInsets.all(8),
+                            margin: const EdgeInsets.all(10),
+                            child: Text(
+                              "-${product.discount ?? 0}% ",
+                              style: Theme.of(
+                                context,
+                              ).textTheme.headlineSmall?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
+                            ),
+                          )
+                          : SizedBox(),
+                    ],
                   ),
-                  Opacity(
-                    opacity: 0.3,
-                    child: Container(
-                      width: widget.size.width * 0.45,
-                      height: widget.size.height * 0.25,
-                      color:Colors.grey, // Semi-transparent overlay,
+                ),
+                Row(
+                  children: [
+                    ...List.generate(
+                      product.rating ?? 0,
+                      (index) => const Icon(
+                        Icons.star,
+                        color: Colors.yellow,
+                        size: 20,
+                      ),
                     ),
-                  ),
-                     widget.product.discount !=0 ?
-                  Container(
-                   decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(25),
+                    ...List.generate(
+                      5 - (product.rating ?? 0),
+                      (index) =>
+                          const Icon(Icons.star, color: Colors.grey, size: 20),
                     ),
-                    padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.all(10),
-                    child: Text(
-                      "-${ widget.product.discount ??0}% ",
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Colors.white,
+                    Text(
+                      "(${product.numberOfReviews ?? 0})",
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineSmall?.copyWith(
+                        color: Colors.grey,
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
                     ),
-        
-                  ):SizedBox()
-                ],
-              ),
-            ),
-           Row(
-          children: [
-          // Add some space on the left
-             // Add some space on the left
-            // Generate filled stars
-            ...List.generate(widget.product.rating??0, (index) => const Icon(
-        Icons.star,
-        color: Colors.yellow,
-        size: 20,
-            )),
-            // Generate empty stars
-            ...List.generate(5 -( widget.product.rating??0), (index) => const Icon(
-        Icons.star,
-        color: Colors.grey,
-        size: 20,
-            )),
-        Text(
-          "(${widget.product.numberOfReviews ?? 0})",
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            color: Colors.grey,
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-          ),
-        )
-          ],
-        )
-             , Text(
-              widget.product.name,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-        
-              ),),
-               Text(
-              widget.product.category,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-        
-              ),)
-              , Text.rich(
-
-
-        widget.product.discount !=0?
-        TextSpan(
-          text:
-          "${widget.product.price}"" \$",
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            color: Colors.grey,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            decoration: TextDecoration.lineThrough, // No strikethrough
-          ),
-
-
-
-
-                 children: [
-
-
-    TextSpan(
-    text:
-
-    "      ${widget.product.discount ==0 ? widget.product.price:  widget.product.price - (
-    (widget.product.price * (widget.product.discount??0  )) / 100
-
-    ) }"" \$",
-    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-    color: Colors.red,
-    fontWeight: FontWeight.bold,
-    fontSize: 15,
-    decoration: TextDecoration.none, // Strikethrough
-    ),)
-
-               // Add some space between prices
-
-
-
-                 ]
-        ):TextSpan(
-    text:
-
-    "${widget.product.discount ==0 ? widget.product.price:  widget.product.price - (
-    (widget.product.price * (widget.product.discount??0  )) / 100
-
-    ) }"" \$",
-    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-    color: Colors.red,
-    fontWeight: FontWeight.bold,
-    fontSize: 15,
-    decoration: TextDecoration.none, // Strikethrough
-    ),)
-        
-        ) ],
-        ),
-        Positioned(
-        
-                right: 0,
-                    top: widget.size.height * 0.22,
-                  child: SizedBox(
-                    width: 40,
-                    child: FloatingActionButton(
-                      
-                      shape:  CircleBorder(),
-                        backgroundColor: Colors.white,
-                        child : Icon(
-                            click?   Icons.favorite : Icons.favorite_border
-                    
-                        )
-                        ,
-                        onPressed: (){
-                    
-                          setState(() {
-                            click = !click; 
-                          });
-                    
-                        }
-                    
-                    ),
+                  ],
+                ),
+                Text(
+                  product.name,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-        ],
-        
+                Text(
+                  product.category,
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text.rich(
+                  product.discount != 0
+                      ? TextSpan(
+                        text: "${product.price} \$",
+                        style: Theme.of(
+                          context,
+                        ).textTheme.headlineSmall?.copyWith(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                        children: [
+                          TextSpan(
+                            text:
+                                "      ${product.discount == 0 ? product.price : product.price - ((product.price * (product.discount ?? 0)) / 100)} \$",
+                            style: Theme.of(
+                              context,
+                            ).textTheme.headlineSmall?.copyWith(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ],
+                      )
+                      : TextSpan(
+                        text:
+                            "${product.discount == 0 ? product.price : product.price - ((product.price * (product.discount ?? 0)) / 100)} \$",
+                        style: Theme.of(
+                          context,
+                        ).textTheme.headlineSmall?.copyWith(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                ),
+              ],
+            ),
+            Positioned(
+              right: 0,
+              top: size.height * 0.22,
+              child: SizedBox(
+                width: 40,
+                child: FloatingActionButton(
+                  heroTag: 'fab_${product.id}_$section',
+                  shape: CircleBorder(),
+                  backgroundColor: Colors.white,
+                  child: Icon(Icons.favorite_border),
+                  onPressed: () {
+                    // No-op: StatelessWidget can't update state
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

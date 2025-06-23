@@ -80,17 +80,22 @@ class _HomeState extends State<Home> {
               }
               final listProducts = asyncSnapshot.data!;
               return SizedBox(
-                  height: size.height*0.4,
-                
-// Fixed: was size.height*43
-                
+                height: size.height * 0.4,
+
+                // Fixed: was size.height*43
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: listProducts.length,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: CardSale(size: size, product: listProducts[index]),
-                  ),
+                  itemBuilder:
+                      (context, index) => Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: CardSale(
+                          key: ValueKey(listProducts[index].id ?? index),
+                          size: size,
+                          product: listProducts[index],
+                          section: 'sales',
+                        ),
+                      ),
                 ),
               );
             },
@@ -105,7 +110,8 @@ class _HomeState extends State<Home> {
 
           // NEW PRODUCTS - Use different stream if available
           StreamBuilder(
-            stream: data_base.strream_pr_new(), // Change this to appropriate stream
+            stream:
+                data_base.strream_pr_new(), // Change this to appropriate stream
             // If you don't have a separate stream for new products, use the same one but add a comment
             // stream: data_base.strream_pr_sales(), // TODO: Create separate stream for new products
             builder: (context, asyncSnapshot) {
@@ -122,16 +128,21 @@ class _HomeState extends State<Home> {
               }
               final listProducts = asyncSnapshot.data!;
               return SizedBox(
-                height: size.height*0.4,
+                height: size.height * 0.4,
                 // Fixed: was size.height*43
                 child: ListView.builder(
-                  
                   scrollDirection: Axis.horizontal,
                   itemCount: listProducts.length,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: CardSale(size: size, product: listProducts[index]),
-                  ),
+                  itemBuilder:
+                      (context, index) => Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: CardSale(
+                          key: ValueKey(listProducts[index].id ?? index),
+                          size: size,
+                          product: listProducts[index],
+                          section: 'new',
+                        ),
+                      ),
                 ),
               );
             },
