@@ -8,9 +8,10 @@ class Product {
   final String imageUrl;
   final int? discount;
   final int? rating; // Optional rating field
-  final int? numberOfReviews; // Default value for number of reviews
+  final int? numberOfReviews;
+  final String? description;  // Default value for number of reviews
   // Constructor to initialize the product
-  bool is_favorite ;
+  bool is_favorite;
   Product({
     required this.id,
     required this.price,
@@ -20,7 +21,8 @@ class Product {
     this.discount,
     this.rating,
     this.numberOfReviews,
-    this.is_favorite = false  // Default value for number of reviews
+    this.description,
+    this.is_favorite = false, // Default value for number of reviews
   });
 
   factory Product.fromMap(Map<String, dynamic>? map, String doc_id) {
@@ -33,7 +35,8 @@ class Product {
       discount: map?['discount'] as int?,
       rating: map?['rating'] as int?,
       numberOfReviews: map?['numberOfReviews'] as int?,
-      is_favorite: map?['is_favorite'] as bool 
+      description: map?['description'] as String? ,
+      is_favorite: map?['is_favorite'] as bool,
     );
   }
 
@@ -47,8 +50,8 @@ class Product {
       'discount': discount,
       'rating': rating,
       'numberOfReviews': numberOfReviews,
-      'is_favorite': is_favorite
+      'description' : description,
+      'is_favorite': is_favorite,
     };
   }
- 
 }
