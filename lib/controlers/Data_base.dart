@@ -1,10 +1,12 @@
 import 'package:takiro_store/model/product.dart';
+import 'package:takiro_store/model/user_data.dart';
 import 'package:takiro_store/services/cloud_firestore.dart';
 import 'package:takiro_store/utilities/api_path.dart';
 
 abstract class DataBase {
   Stream<List<Product>> strream_pr_sales();
   Stream<List<Product>> strream_pr_new();
+  Future<void> set_user_data(UserData data );
 }
 
 class fire_store_db implements DataBase {
@@ -32,4 +34,14 @@ class fire_store_db implements DataBase {
       data: pr.toMap(),
     );
   }
+
+  @override
+
+  Future<void> set_user_data(UserData data)async =>
+   await  cloud_fire.set_data(
+      path: ApiPath.User(data.uid),
+      data: data.toMap()
+          ,
+    );
+  
 }

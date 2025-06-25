@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takiro_store/controlers/Data_base.dart';
 import 'package:takiro_store/model/product.dart';
+import 'package:takiro_store/widgets/drop_dow_menu.dart';
 import 'package:takiro_store/widgets/mainbutton.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -42,6 +43,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
+                  SizedBox(width: 150, child: DropDowMenu()),
                   SizedBox(
                     height: 60,
                     width: 60,
@@ -146,14 +148,14 @@ class _ProductDetailsState extends State<ProductDetails> {
               width: size.width,
               height: size.height * 0.14,
               child: Container(
-                decoration: BoxDecoration(
-                  color:Colors.white,
-                ),
+                decoration: BoxDecoration(color: Colors.white),
                 child: Center(
-                  child: Mainbutton(txt: "Add to Card ", onPressed: () {},
-                  border_rdios: 40.0,
-                  height: 60,
-                  widh: size.width*0.85,
+                  child: Mainbutton(
+                    txt: "Add to Card ",
+                    onPressed: () {},
+                    border_rdios: 40.0,
+                    height: 60,
+                    widh: size.width * 0.85,
                   ),
                 ),
               ),

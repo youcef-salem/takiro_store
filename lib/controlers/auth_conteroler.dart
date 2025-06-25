@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:takiro_store/controlers/Data_base.dart' as db;
+import 'package:takiro_store/model/user_data.dart';
 import 'package:takiro_store/services/Auth.dart';
+import 'package:takiro_store/utilities/constants.dart';
 import 'package:takiro_store/utilities/enums.dart';
 
 class auth_controler with ChangeNotifier {
@@ -7,6 +10,7 @@ class auth_controler with ChangeNotifier {
   String email;
   String password;
   Auth_Form_TYpe type;
+  db.DataBase dba = db.fire_store_db(uuid: 'kzwzawd');
   void update_email(String email) {
     copyWith(email: email);
     notifyListeners();
@@ -31,12 +35,15 @@ class auth_controler with ChangeNotifier {
     try {
       if (type == Auth_Form_TYpe.login) {
         await auth.Login_with_email_and_password(email, password);
+       
       } else {
         await auth.Signup_with_email_and_password(email, password);
+        await dba.set_user_data(UserData(uid:doc_id_localdb() , email: email));
+        
       }
       copyWith(email: '', password: '');
     } catch (e) {
-      rethrow; 
+      rethrow;
     }
     notifyListeners();
   }
