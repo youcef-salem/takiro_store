@@ -1,23 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:takiro_store/controlers/Data_base.dart';
+import 'package:takiro_store/model/add_tocard.dart';
 import 'package:takiro_store/model/product.dart';
+import 'package:takiro_store/services/Auth.dart';
+import 'package:takiro_store/utilities/constants.dart';
 import 'package:takiro_store/widgets/drop_dow_menu.dart';
 import 'package:takiro_store/widgets/mainbutton.dart';
 
 class ProductDetails extends StatefulWidget {
   final Product pr;
-
-  const ProductDetails({super.key, required this.pr});
+  final fire_store_db db ; 
+  const ProductDetails({super.key, required this.pr
+  ,required this.db
+  });
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  
+  Future<void> ontap(String size ) async {
+    try {
+      final auth = Provider.of<AuthBase>(context, listen: false);
+    
+      if (auth.currentUser == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please login to add items to cart')),
+        );
+        return;
+      }
+
+      final add_tocard_product = AddTocard(
+        size: size,
+        id: doc_id_localdb(),
+        price: widget.pr.price,
+        name: widget.pr.name,
+        category: widget.pr.category,
+        imageUrl: widget.pr.imageUrl,
+        pr_id: widget.pr.id,
+      );
+      await widget.db .add_tocard(add_tocard_product);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Added to cart successfully')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Failed to add to cart: $e')));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final fire_store_db data_bs = fire_store_db(uuid: widget.pr.id);
+   
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -55,7 +97,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: IconButton(
                         onPressed:
                             () => setState(() {
-                              data_bs.togle_fav(widget.pr);
+                              widget.db.togle_fav(widget.pr);
                             }),
                         icon: Icon(
                           widget.pr.is_favorite
@@ -152,7 +194,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Center(
                   child: Mainbutton(
                     txt: "Add to Card ",
-                    onPressed: () {},
+                    onPressed: () async => ontap('size'),
                     border_rdios: 40.0,
                     height: 60,
                     widh: size.width * 0.85,

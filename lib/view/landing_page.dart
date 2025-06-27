@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart' ;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:takiro_store/controlers/Data_base.dart';
 import 'package:takiro_store/controlers/auth_conteroler.dart';
@@ -14,6 +14,7 @@ class Laanding_page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Auth = Provider.of<AuthBase>(context, listen: false);
+    final db = Provider.of<fire_store_db>(context);
     return StreamBuilder<User?>(
       stream: Auth.authStateChanges,
       builder: (context, asyncSnapshot) {
@@ -21,26 +22,18 @@ class Laanding_page extends StatelessWidget {
           final user = asyncSnapshot.data;
           if (user == null) {
             return ChangeNotifierProvider<auth_controler>(
-              create: (_) => auth_controler(auth: Auth) ,
+              create: (_) => auth_controler(auth: Auth,dba: db),
               child: const auth_view.Auth(),
-
             );
           } else {
-            return Provider(
-              create: (_) => fire_store_db(uuid: user.uid),
-              child: const  BottomNavbar());
+            return const BottomNavbar();
+          }
         }
+       
 
-
-
-      }
-        // TODO WEwill make one componenet ot load the data
-        return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-      }
+       
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      },
     );
   }
 }

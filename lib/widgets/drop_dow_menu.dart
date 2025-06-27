@@ -8,9 +8,10 @@ class DropDowMenu extends StatefulWidget {
 }
 
 class _DropDowMenuState extends State<DropDowMenu> {
+
   @override
   Widget build(BuildContext context) {
-    String chosenModel = "S";
+      String chosenModel = "S"; 
     return Center(
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(

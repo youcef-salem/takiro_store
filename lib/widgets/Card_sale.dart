@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:takiro_store/controlers/Data_base.dart';
 import 'package:takiro_store/model/product.dart';
 import 'package:takiro_store/utilities/routes.dart';
@@ -17,13 +18,14 @@ class CardSale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final fire_store_db data_bs  = fire_store_db(uuid: product.id);
+   
+    final provi = Provider.of<fire_store_db>(context);
     return InkWell(
       onTap:
-          () => Navigator.of(
-            context,
-            rootNavigator: true
-          ).pushNamed(Routes.product_details, arguments: product),
+          () => Navigator.of(context, rootNavigator: true).pushNamed(
+            Routes.product_details,
+            arguments: {'product': product, 'database': provi},
+          ),
 
       child: Container(
         width: size.width * 0.45,
@@ -168,8 +170,12 @@ class CardSale extends StatelessWidget {
                   heroTag: 'fab_${product.id}_$section',
                   shape: CircleBorder(),
                   backgroundColor: Colors.white,
-                  child: Icon( product.is_favorite? Icons.favorite_sharp : Icons.favorite_border   ),
-                  onPressed: () =>data_bs.togle_fav(product)
+                  child: Icon(
+                    product.is_favorite
+                        ? Icons.favorite_sharp
+                        : Icons.favorite_border,
+                  ),
+                  onPressed: () => provi.togle_fav(product),
                 ),
               ),
             ),

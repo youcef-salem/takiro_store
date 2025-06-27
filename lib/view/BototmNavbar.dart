@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
+import 'package:takiro_store/controlers/Data_base.dart';
 import 'package:takiro_store/view/Home.dart';
 
 import 'package:takiro_store/view/profile_page.dart';
@@ -15,11 +16,12 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
-  final PersistentTabController _controller = PersistentTabController();
-
   @override
   Widget build(BuildContext context) {
-    final Auth = Provider.of<AuthBase>(context, listen: false);
+    final auth = Provider.of<AuthBase>(context, listen: false);
+    // Create database instance with current user's UUID
+    final db = Provider.of<fire_store_db>(context, listen: false);
+
     return Scaffold(
       body: PersistentTabView(
         tabs: [
@@ -44,7 +46,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           ),
           PersistentTabConfig(
             screen: ChangeNotifierProvider<auth_controler>(
-              create: (_) => auth_controler(auth: Auth),
+              create: (_) => auth_controler(auth: auth, dba: db),
               child: const ProfilePage(),
             ),
             item: ItemConfig(
