@@ -15,16 +15,16 @@ class Laanding_page extends StatelessWidget {
   Widget build(BuildContext context) {
     final Auth = Provider.of<AuthBase>(context, listen: false);
     final db = Provider.of<fire_store_db>(context);
-    return StreamBuilder<User?>(
+    return ChangeNotifierProvider<auth_controler>(
+              create: (_) => auth_controler(auth: Auth,dba: db),
+              child: 
+    StreamBuilder<User?>(
       stream: Auth.authStateChanges,
       builder: (context, asyncSnapshot) {
         if (asyncSnapshot.connectionState == ConnectionState.active) {
           final user = asyncSnapshot.data;
           if (user == null) {
-            return ChangeNotifierProvider<auth_controler>(
-              create: (_) => auth_controler(auth: Auth,dba: db),
-              child: const auth_view.Auth(),
-            );
+            return auth_view.Auth();
           } else {
             return const BottomNavbar();
           }
@@ -33,7 +33,7 @@ class Laanding_page extends StatelessWidget {
 
        
         return const Scaffold(body: Center(child: CircularProgressIndicator()));
-      },
+      },)
     );
   }
 }

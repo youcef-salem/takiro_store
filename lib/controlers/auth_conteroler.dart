@@ -32,9 +32,13 @@ class auth_controler with ChangeNotifier {
     notifyListeners();
   }
 
+  String get_uuid() {
+    final uid = auth.currentUser?.uid;
+
+    return uid ?? '';
+  }
+
   Future<void> submit() async {
-
-
     try {
       if (type == Auth_Form_TYpe.login) {
         await auth.Login_with_email_and_password(email, password);
@@ -45,7 +49,10 @@ class auth_controler with ChangeNotifier {
           throw Exception('Failed to create user account');
         }
 
-        await dba.set_user_data(UserData(uid: user.uid, email: email));
+        await dba.set_user_data(
+          UserData(uid: user.uid, email: email),
+          user.uid,
+        );
 
         copyWith(email: '', password: '');
         notifyListeners();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:takiro_store/controlers/Data_base.dart';
+import 'package:takiro_store/controlers/auth_conteroler.dart';
 import 'package:takiro_store/model/product.dart';
 import 'package:takiro_store/utilities/routes.dart';
 
@@ -18,13 +19,13 @@ class CardSale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     final provi = Provider.of<fire_store_db>(context);
+    final ct = Provider.of<auth_controler>(context);
     return InkWell(
       onTap:
           () => Navigator.of(context, rootNavigator: true).pushNamed(
             Routes.product_details,
-            arguments: {'product': product, 'database': provi},
+            arguments: {'product': product, 'database': provi, 'auht_ct':ct},
           ),
 
       child: Container(

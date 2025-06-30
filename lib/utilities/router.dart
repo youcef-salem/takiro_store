@@ -33,6 +33,7 @@ Route<dynamic> ongenerateRoute(RouteSettings settings) {
           child: ProductDetails(
             pr: map['product'],
             db: map['database'],
+            ct: map['auht_ct'],
           ),
         ),
         settings: settings,

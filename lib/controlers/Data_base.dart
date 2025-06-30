@@ -7,8 +7,8 @@ import 'package:takiro_store/utilities/api_path.dart';
 abstract class DataBase {
   Stream<List<Product>> strream_pr_sales();
   Stream<List<Product>> strream_pr_new();
-  Future<void> set_user_data(UserData data);
-  Future<void> add_tocard(AddTocard add_tocard);
+  Future<void> set_user_data(UserData data,String uid);
+  Future<void> add_tocard(AddTocard add_tocard,String uid);
 }
 
 class fire_store_db implements DataBase {
@@ -44,20 +44,20 @@ class fire_store_db implements DataBase {
   }
 
   @override
-  Future<void> set_user_data(UserData data) async {
-    if (uuid.isEmpty) {
+  Future<void> set_user_data(UserData data,String uid ) async {
+    if (uid.isEmpty) {
       throw Exception('Cannot set user data: User is not logged in');
     }
-    await cloud_fire.set_data(path: ApiPath.User(uuid), data: data.toMap());
+    await cloud_fire.set_data(path: ApiPath.User(uid), data: data.toMap());
   }
 
   @override
-  Future<void> add_tocard(AddTocard add_tocard) async {
-    if (uuid.isEmpty) {
+  Future<void> add_tocard(AddTocard add_tocard,String uid) async {
+    if (uid.isEmpty) {
       throw Exception('Cannot add to cart: User is not logged in');
     }
     await cloud_fire.set_data(
-      path: ApiPath.Add_tocard(uuid, add_tocard.id),
+      path: ApiPath.Add_tocard(uid, add_tocard.id),
       data: add_tocard.toMap(),
     );
   }
